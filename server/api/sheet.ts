@@ -13,7 +13,7 @@ const readData = async () => {
   });
 
   const sheets = google.sheets({ version: 'v4', auth });
-  const range = 'J2:J500'; // Read only column J
+  const range = 'H2:H500'; // Read only column J
 
   try {
     const response = await sheets.spreadsheets.values.get({
