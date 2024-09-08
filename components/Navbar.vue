@@ -3,9 +3,9 @@
     <nav>
     <ul>
       <li><a :class="{ active: currentPage === '1d' }" href="/1d">特等奖</a></li>
-        <li><a :class="{ active: currentPage === '1n' }" href="/1n">大奖</a></li>
-        <li><a :class="{ active: currentPage === '3n' }" href="/3n">幸运奖</a></li>
-        <li><a :class="{ active: currentPage === '' }" href="/">参与奖</a></li>
+        <li><a :class="{ active: currentPage === '1n' }" href="/1n"></a></li>
+        <li><a :class="{ active: currentPage === '3n' }" href="/3n"></a></li>
+        <li><a :class="{ active: currentPage === '' }" href="/"></a></li>
       </ul>
     </nav>
   </div>
