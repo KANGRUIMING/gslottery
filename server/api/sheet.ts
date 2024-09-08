@@ -13,14 +13,30 @@ const readData = async () => {
   });
 
   const sheets = google.sheets({ version: 'v4', auth });
-  const range = 'H2:H500'; // Read only column J
+
+  // Fetch data from both column J and column H
+  const rangeJ = 'J2:J500'; // Column J
+  const rangeH = 'H2:H500'; // Column H
 
   try {
-    const response = await sheets.spreadsheets.values.get({
+    // Get data from both columns
+    const responseJ = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SHEET_ID!,
-      range,
+      range: rangeJ,
     });
-    return { data: response.data.values }; // Return the data from column J
+
+    const responseH = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.SHEET_ID!,
+      range: rangeH,
+    });
+
+    const dataJ = responseJ.data.values?.map(row => Number(row[0])) || [];
+    const dataH = responseH.data.values?.map(row => Number(row[0])) || [];
+
+    // Filter numbers in column J that exist in column H and are within the range 1-300
+    const validNumbers = dataJ.filter(num => dataH.includes(num) && num >= 1 && num <= 300);
+
+    return { data: validNumbers }; // Return the valid numbers
   } catch (error) {
     console.error('The API returned an error: ', error);
     throw new Error('Failed to fetch data from Google Sheets');
